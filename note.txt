@@ -7,3 +7,10 @@ GitHub
 exception log 
 comment + title 
 modular 
+
+
+http://blog.davidvassallo.me/2016/09/13/elasticsearch-python-tips-for-faster-re-indexing/
+http://www.primalsecurity.net/0x10-introduction-to-querying-data-in-elasticseach/
+
+
+https://cybersift.io/
