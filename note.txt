@@ -14,3 +14,6 @@ http://www.primalsecurity.net/0x10-introduction-to-querying-data-in-elasticseach
 
 
 https://cybersift.io/
+
+
+https://www.elastic.co/blog/detecting_dns_tunnels_with_packetbeat_and_watcher
