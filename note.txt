@@ -8,12 +8,21 @@ exception log
 comment + title 
 modular 
 
+Main source:
+
+https://github.com/hslatman/awesome-threat-intelligence
+
+Elastic Scan:
 
 http://blog.davidvassallo.me/2016/09/13/elasticsearch-python-tips-for-faster-re-indexing/
 http://www.primalsecurity.net/0x10-introduction-to-querying-data-in-elasticseach/
 
+People:
 
 https://cybersift.io/
 
+Miscellaneous
 
 https://www.elastic.co/blog/detecting_dns_tunnels_with_packetbeat_and_watcher
+
+
