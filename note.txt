@@ -1,0 +1,9 @@
+scroll settare index.max_result_window
+multitasking 
+eliminate duplicate list 
+index_name 
+add record info A/PTR 
+GitHub 
+exception log 
+comment + title 
+modular 
