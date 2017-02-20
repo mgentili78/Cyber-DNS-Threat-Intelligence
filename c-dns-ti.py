@@ -13,14 +13,13 @@ import re
 index_name = "packetbeat-*"
 type_name = "dns"
 size_count = 200
-time_delta = "01:30:00"
+time_delta = "02:15:00"
 host = "http://192.168.47.200:9200"
 es = Elasticsearch([host], timeout=100)
 
 time_end = datetime.now().replace(microsecond=0)
 (h, m, s) = time_delta.split(':')
-time_start = (time_end - timedelta(hours=int(h),
-                                   minutes=int(m), seconds=int(s)))
+time_start = (time_end - timedelta(hours=int(h),minutes=int(m), seconds=int(s)))
 time_start = int(time_start.timestamp()) * 1000
 time_end = int(time_end.timestamp()) * 1000
 

@@ -1,7 +1,6 @@
 Tasks:
-type NS
 add record info A/PTR
-add field elasticsearch
+add field cliente_server (https://www.elastic.co/guide/en/beats/packetbeat/5.0/faq.html)
 GitHub (fork, windows) 
 exception log 
 comment + title 
