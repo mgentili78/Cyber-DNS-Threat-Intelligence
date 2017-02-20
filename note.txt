@@ -1,12 +1,14 @@
-scroll settare index.max_result_window
-multitasking 
-eliminate duplicate list 
-index_name 
+Tasks:
+
 add record info A/PTR 
-GitHub 
+GitHub (fork, windows) 
 exception log 
 comment + title 
 modular 
+white list
+multitasking 
+
+Documentation:
 
 Main source:
 
@@ -20,9 +22,11 @@ http://www.primalsecurity.net/0x10-introduction-to-querying-data-in-elasticseach
 People:
 
 https://cybersift.io/
+http://www.mlsecproject.org/
 
 Miscellaneous
 
-https://www.elastic.co/blog/detecting_dns_tunnels_with_packetbeat_and_watcher
+https://www.elastic.co/blog/detecting_dns_tunnels_with_packetbeat_and_watcher (dns watcher)
+https://www.sans.org/reading-room/whitepapers/detection/botnet-tracking-tools-35347 (detecting botnet)
 
-
+Honeypoint(see)
