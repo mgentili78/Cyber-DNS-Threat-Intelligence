@@ -1,6 +1,7 @@
 Tasks:
-
-add record info A/PTR 
+type NS
+add record info A/PTR
+add field elasticsearch
 GitHub (fork, windows) 
 exception log 
 comment + title 
