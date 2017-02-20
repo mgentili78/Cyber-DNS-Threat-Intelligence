@@ -1,10 +1,12 @@
 Tasks:
 add record info A/PTR
-add field cliente_server (https://www.elastic.co/guide/en/beats/packetbeat/5.0/faq.html)
+remove duplicate list
+add field client_ip + response ptr query ???
 GitHub (fork, windows) 
 exception log 
 comment + title 
 modular 
+moltiplicare *2 time_delta (dopo aver aggiunto tag log)
 white list
 multitasking 
 

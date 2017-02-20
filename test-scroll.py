@@ -27,8 +27,8 @@ regex_arpa_ip = r"(\d*)\.(\d*)\.(\d*)\.(\d*)"
 
 dns_query_a = {
     "size": size_count,
-    "_source": "dns",
-    "query": {
+    "_source": ["dns", "ip"],
+     "query": {
         "bool": {
             "must": [
                 {
@@ -103,13 +103,12 @@ for k1 in result_query_dns_a:
                     try:
                         ip_address = k1["_source"]["dns"]["answers"][k2]["data"]
                         name = k1["_source"]["dns"]["answers"][k2]["name"]
-                  #      dns_server = k1["_source"]["dns"]["answers"][k2]["ip"] ########trovare campo############# 
-                        dns_server = "TBD"
+                        dns_server = k1["_source"]["ip"]
                         ip_record = {'ip_address': ip_address, "name": name, "dns_server": dns_server}
                     except Exception as error:
                         pass
-          #          if not ipaddress.IPv4Address(ip_address).is_private:
-         #               list_ip_record.append(ip_record)
+                    if not ipaddress.IPv4Address(ip_address).is_private:
+                        list_ip_record.append(ip_record)
             except Exception as error:
                 pass
     except Exception as error:
