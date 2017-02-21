@@ -1,6 +1,6 @@
 # Author: Mirco Gentili
 # Date 20170219
-# Version: 0.0.2
+# Version: 0.2
 # Description: Cyber DNS Threat Intelligence
 
 from datetime import datetime
