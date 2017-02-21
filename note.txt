@@ -1,7 +1,10 @@
 Tasks:
-add record info A/PTR
-remove duplicate list
-add field client_ip + response ptr query ???
+check file CTI Lutech v 0.2
+generate alarm (search in list_dns_record tuple ip/name, search id log in es, generate alarm with tag, add tag to log) v0.3 --> test in production
+incident v0.4
+cti ...
+
+
 GitHub (fork, windows) 
 exception log 
 comment + title 
@@ -9,6 +12,11 @@ modular
 moltiplicare *2 time_delta (dopo aver aggiunto tag log)
 white list
 multitasking 
+
+DNS Tunneling:
+TXT parser
+
+
 
 Documentation:
 
@@ -32,3 +40,7 @@ https://www.elastic.co/blog/detecting_dns_tunnels_with_packetbeat_and_watcher (d
 https://www.sans.org/reading-room/whitepapers/detection/botnet-tracking-tools-35347 (detecting botnet)
 
 Honeypoint(see)
+
+DNS Tunneling:
+
+https://www.sans.org/reading-room/whitepapers/dns/detecting-dns-tunneling-34152
