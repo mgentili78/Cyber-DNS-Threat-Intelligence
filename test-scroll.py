@@ -8,7 +8,7 @@ from datetime import timedelta
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 import ipaddress
-import re
+
 
 index_name = "packetbeat-*"
 type_name = "dns"
@@ -128,6 +128,6 @@ for k1 in result_query_dns_a:
   #      pass
 
 for i in list_ip_record:
-   print(i)
+    print(i)
 print(len(list_ip_record))
 print(datetime.now().replace(microsecond=0))
