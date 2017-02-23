@@ -15,7 +15,7 @@ import re
 index_name = "packetbeat-*"
 type_name = "dns"
 size_count = 200
-time_delta = "00:05:00"
+time_delta = "00:01:00"
 host = "http://192.168.47.200:9200"
 es = Elasticsearch([host], timeout=100)
 
@@ -157,23 +157,17 @@ with open('dailyOutput.csv', encoding='utf-8') as csvfile:
 len_ctilist = len(ctilist)
 for k in range(len_ctilist-1):
     k_list = ctilist[k+1][0].split(',')
-    try:
-        ctidict['timestamp'] = k_list[0]          ###################remove useless itemes
-        ctidict['name'] = k_list[1]
-        ctidict['details'] = k_list[2]
-        ctidict['direction'] = k_list[3]
-        ctidict['geoip.country_code2'] = k_list[4]
-        ctidict['ip'] = k_list[5]
-        ctidict['status'] = k_list[6]
-        #print(ctidictlist)
-    except Exception as error:
-        pass
-    ctidictlist.append(ctidict)
-
-for k1 in list_ip:
-    for k2 in ctidictlist:
-        if k1 == k2['ip']:
-            print(k1)
-            print(k2)
+    ctidict['ip'] = k_list[5]
+    if ctidict['ip'] in list_ip:
+        try:
+            ctidict['timestamp'] = k_list[0]          
+            ctidict['name'] = k_list[1]
+            ctidict['details'] = k_list[2]
+            ctidict['direction'] = k_list[3]
+            ctidict['geoip.country_code2'] = k_list[4]
+            ctidict['status'] = k_list[6]
+            print("ok")
+        except Exception as error:
+            pass
 
 print(datetime.now().replace(microsecond=0))
