@@ -8,12 +8,14 @@ from datetime import timedelta
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 import ipaddress
+import csv
 import re
+
 
 index_name = "packetbeat-*"
 type_name = "dns"
 size_count = 200
-time_delta = "00:15:00"
+time_delta = "00:05:00"
 host = "http://192.168.47.200:9200"
 es = Elasticsearch([host], timeout=100)
 
@@ -114,6 +116,8 @@ for k1 in result_query_dns_a:
                 pass
     except Exception as error:
         pass
+print(datetime.now().replace(microsecond=0))
+print("fine query A")
 
 result_query_dns_ptr = helpers.scan(
     es, index=index_name, doc_type='dns', query=dns_query_ptr)
@@ -132,13 +136,44 @@ for k1 in result_query_dns_ptr:
     except Exception as error:
         pass
 
-#for i in list_dns_record:
- #  print(i)
+print(datetime.now().replace(microsecond=0))
+print("fine query PTR")
 
 list_ip = []
 for k1 in list_dns_record:
     list_ip.append(k1['ip_address'])
 
 list_ip = list(set(list_ip))
-print(len(list_ip))
+
+ctilist = []
+ctidict = {}
+ctidictlist = []
+k_list = []
+
+with open('dailyOutput.csv', encoding='utf-8') as csvfile:
+    ctireader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+    ctilist = list(ctireader)
+
+len_ctilist = len(ctilist)
+for k in range(len_ctilist-1):
+    k_list = ctilist[k+1][0].split(',')
+    try:
+        ctidict['timestamp'] = k_list[0]          ###################remove useless itemes
+        ctidict['name'] = k_list[1]
+        ctidict['details'] = k_list[2]
+        ctidict['direction'] = k_list[3]
+        ctidict['geoip.country_code2'] = k_list[4]
+        ctidict['ip'] = k_list[5]
+        ctidict['status'] = k_list[6]
+        #print(ctidictlist)
+    except Exception as error:
+        pass
+    ctidictlist.append(ctidict)
+
+for k1 in list_ip:
+    for k2 in ctidictlist:
+        if k1 == k2['ip']:
+            print(k1)
+            print(k2)
+
 print(datetime.now().replace(microsecond=0))
