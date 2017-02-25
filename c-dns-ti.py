@@ -9,13 +9,12 @@ from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 import ipaddress
 import csv
-import re
 
 
 index_name = "packetbeat-*"
 type_name = "dns"
 size_count = 200
-time_delta = "00:10:00"
+time_delta = "01:45:00"
 host = "http://192.168.47.200:9200"
 es = Elasticsearch([host], timeout=100)
 
@@ -116,8 +115,6 @@ for k1 in result_query_dns_a:
                 pass
     except Exception as error:
         pass
-print(datetime.now().replace(microsecond=0))
-print("fine query A")
 
 result_query_dns_ptr = helpers.scan(
     es, index=index_name, doc_type='dns', query=dns_query_ptr)
@@ -136,63 +133,47 @@ for k1 in result_query_dns_ptr:
     except Exception as error:
         pass
 
-print(datetime.now().replace(microsecond=0))
-print("fine query PTR")
-
 list_ip = []
 for k1 in list_dns_record:
     list_ip.append(k1['ip_address'])
 
 list_ip = list(set(list_ip))
-
-ctilist = []
-ctidict = {}
-ctidictlist = []
+lutech_cti_list = []
+lutech_cti_dict = {}
+lutech_threat_feed_list = []
 k_list = []
 
 with open('dailyOutput.csv', encoding='utf-8') as csvfile:
-    ctireader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-    ctilist = list(ctireader)
+    ctireader = csv.reader(csvfile, delimiter=',', quotechar='"')
+    lutech_cti_list = list(ctireader)
 
-len_ctilist = len(ctilist)
-for k in range(len_ctilist-1):
-    k_list = ctilist[k+1][0].split(',')
-    try:
-        ctidict['ip'] = k_list[5]
-    except Exception as error:
-        pass
-    try:
-        ctidict['details'] = k_list[2]
-    except Exception as error:
-        ctidict['details'] = "Unknown"
-    if ctidict['ip'] in list_ip and (ctidict['details'] == "CnC" or ctidict['details'] == "CnC" or ctidict['details'] == "Bot"):
-        try:
-            try: 
-                ctidict['timestamp'] = k_list[0]
-            except Exception as error:
-                ctidict['timestamp'] = "Unknown"         
-            try:
-                ctidict['name'] = k_list[1]
-            except Exception as error:
-                ctidict['name'] = "Unknown"
-            try:
-                ctidict['details'] = k_list[2]
-            except Exception as error:
-                ctidict['details'] = "Unknown"
-            try:
-                ctidict['direction'] = k_list[3]
-            except Exception as error:
-                ctidict['direction'] = "Unknown"
-            try:
-                ctidict['geoip.country_code2'] = k_list[4]
-            except Exception as error:
-                ctidict['geoip.country_code2'] = "Unknown"
-            try:
-                ctidict['status'] = k_list[6]
-            except Exception as error:
-                ctidict['status'] = "Unknown"
-            print(ctidict)
-        except Exception as error:
-            pass
+len_lutech_cti_list = len(lutech_cti_list) - 1
+
+for k in range(len_lutech_cti_list):
+    k_list = lutech_cti_list[k+1]    
+    lutech_cti_dict['ip_address'] = k_list[5]
+    lutech_cti_dict['details'] = k_list[2]
+    if lutech_cti_dict['ip_address'] in list_ip:
+        lutech_cti_dict['timestamp'] = k_list[0]    
+        lutech_cti_dict['name'] = k_list[1]
+        lutech_cti_dict['geoip.country_code2'] = k_list[4]
+        lutech_cti_dict['status'] = k_list[6]
+        lutech_threat_feed_list.append(lutech_cti_dict.copy())
+
+alarm = {}
+list_alarm = []
+
+for k1_list in lutech_threat_feed_list:
+    for k2_list in list_dns_record:
+        if k1_list['ip_address'] == k2_list['ip_address']:
+            alarm['dst_ip'] = k1_list['ip_address']
+            alarm['src_ip'] = k2_list['client_ip']
+            alarm['dns_server'] = k2_list['dns_server']
+            alarm['threat_feed'] = {'threat_feed_source': 'lutech', 'name': k1_list['name'], 'detail': k1_list['details'], 'country': k1_list['geoip.country_code2'], 'status': k1_list['status']}
+            if not alarm in list_alarm: 
+                list_alarm.append(alarm.copy())
+
+for k in list_alarm:
+    print(k)
 
 print(datetime.now().replace(microsecond=0))

@@ -13,9 +13,11 @@ moltiplicare *2 time_delta (dopo aver aggiunto tag log)
 white list
 multitasking 
 
+
+export PYTHONIOENCODING=utf-8
+
 DNS Tunneling:
 TXT parser
-
 
 
 Documentation:
