@@ -4,14 +4,13 @@ generate alarm (search in list_dns_record tuple ip/name, search id log in es, ge
 incident v0.4
 cti ...
 
-
+comment 
 GitHub (fork, windows) 
-exception log 
-comment + title 
 modular 
-moltiplicare *2 time_delta (dopo aver aggiunto tag log)
 white list
 multitasking 
+moltiplicare *2 time_delta (dopo aver aggiunto tag log)
+
 
 
 export PYTHONIOENCODING=utf-8
